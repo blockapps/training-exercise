@@ -87,7 +87,7 @@ function newElement() {
   // console.log(finalVal)
   
   if (hasNull(user)) {
-    alert("You must write something!");
+    alert("You missed something!");
   } else {
     document.getElementById("myUL").appendChild(li);
   }
