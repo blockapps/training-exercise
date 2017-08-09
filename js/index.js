@@ -42,7 +42,7 @@ function hasNull(target) {
 }
 
 
-}
+
 
 // Create a new list item when clicking on the "Add" button
 function newElement() {
@@ -66,10 +66,14 @@ function newElement() {
   Object.getOwnPropertyNames(user).forEach(function(element){
     if(user.hasOwnProperty(element)){
       var b = document.createElement("b");
-      var m = document.createTextNode(element);
+      var br = document.createElement("br");
+      var m = document.createTextNode(element + ": ");
       b.appendChild(m)
-      var t = document.createTextNode(userJSON);
-      li.appendChild();
+      console.log(user[element])
+      var t = document.createTextNode(String(user[element]));
+      li.appendChild(b);
+      li.appendChild(t);
+      li.appendChild(br);
 
     }
   })
@@ -87,10 +91,13 @@ function newElement() {
   } else {
     document.getElementById("myUL").appendChild(li);
   }
-  /*
-  document.getElementById("myInput").value = "";
-  document.getElementById("moreInfo").value = "";
-*/
+  document.getElementById("name").value = "";
+  document.getElementById("dateC").value = "";
+  document.getElementById("dateE").value = "";
+  document.getElementById("address").value = "";
+  document.getElementById("age").value = "";
+  document.getElementById("nationality").value = "";
+
 /*
   var span = document.createElement("SPAN");
   var txt = document.createTextNode("\u00D7");
