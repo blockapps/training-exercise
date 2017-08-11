@@ -5,18 +5,18 @@ const rp = require('request-promise');
  * will create another account for the user and print this address.
  */
 
-var blocUrl = '$SERVER_URL$'; //same url of our bloc-server used in config.yaml
-var stratoUrl = '$SERVER_URL$'; //url of the strato instance that is running the blockchain, same as in config.yaml
+var blocUrl = 'http://localhost/bloc/v2.1'; //same url of our bloc-server used in config.yaml
+var stratoUrl = 'http://localhost/strato-api'; //url of the strato instance that is running the blockchain, same as in config.yaml
 
-var userName = 'http-call';
-var createUserPayload = {
-  password: 'httpPass',
-  faucet:'1'
-};
+var userName = 'charlie';
+
+// changed createUserPayload!!
+var createUserPayload = 'password';
 
 var options = {
     method: 'POST',
-    uri: blocUrl + '/users/' +  userName,
+    // changed uri!!
+    uri: blocUrl + '/users/' +  userName + '?faucet',
     body: createUserPayload,
     json: true // Automatically stringifies the body to JSON
 };
