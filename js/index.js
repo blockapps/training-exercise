@@ -41,7 +41,10 @@ function hasNull(target) {
   return result;
 }
 
-
+const passportRegistryAddress = '72f28bac0b0179ef976d6a5fd24fc0bdd2f4c8a2';
+const username = 'test';
+const userAddress = 'c12d981cc2f9c568cfa0ace37ca70ef7ec7e2e1b';
+const functionCallUrl = 'http://localhost/bloc/v2.1/users/{0}/{1}/contract/PassportRegistry/{2}/call';
 
 
 // Create a new list item when clicking on the "Add" button
@@ -54,6 +57,43 @@ function newElement() {
   var age = document.getElementById("age").value;
   var nation = document.getElementById("nationality").value;
 
+  const url = functionCallUrl
+    .replace('{0}', username)
+    .replace('{1}', userAddress)
+    .replace('{2}', passportRegistryAddress);
+
+  console.log(url);
+
+  fetch(url,{
+    method: 'POST',
+    body: JSON.stringify({
+      args: {
+        name: name,
+        dateCreated: dateC,
+        dateExpires: dateE,
+        residentialAddress: address,
+        age: age,
+        countryOfOrigin: nation
+      },
+      value: 0,
+      method: 'createPassport',
+      password: '1234'
+    }),
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+  })
+  .then((response) => {
+    fetch('http://localhost/cirrus/search/Passport')
+    .then((pResponse) => {
+      console.log(pResponse.json());
+    })
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
   var user = {
     name: name,
     dateCreated: dateC,
@@ -61,7 +101,7 @@ function newElement() {
     address: address,
     age: age,
     nationality: nation
-  };  
+  };
 
   Object.getOwnPropertyNames(user).forEach(function(element){
     if(user.hasOwnProperty(element)){
@@ -85,7 +125,7 @@ function newElement() {
   // console.log(descValue)
   // var finalVal = String(inputValue) + ": " + String(descValue);
   // console.log(finalVal)
-  
+
   if (hasNull(user)) {
     alert("You missed something!");
   } else {
