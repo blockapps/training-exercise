@@ -1,0 +1,16 @@
+contract ProductManager {
+  Product[] products;
+
+  function createProduct(uint _id, string _name, string _category, uint _price) {
+    products.push(new Product(_id,  _name,  _category,  _price));
+  }
+  function changeProduct(uint _id, string _name, string _category, uint _price) {
+    uint i = 0;
+    for (i=0; i<products.length; i++) {
+      if (products[i].id() == _id){
+        break;
+      }
+    }
+    products[i].changeProduct(_name,  _category,  _price);
+  }
+}
