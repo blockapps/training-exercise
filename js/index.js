@@ -3,9 +3,7 @@ const username = 'pls';
 const userAddress = 'daee22a32222daa9bf6ace1d8f2b831a8c5fe6a3';
 const functionCallUrl = 'http://192.168.99.100/bloc/v2.1/users/{0}/{1}/contract/PassportRegistry/{2}/call';
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+
 
 async function wait5() {
   await sleep(5000);
