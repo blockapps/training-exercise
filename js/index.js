@@ -1,3 +1,17 @@
+const passportRegistryAddress = 'e77643e24c74cf19e55847d83d1ad44b9b71d348';
+const username = 'pls';
+const userAddress = 'daee22a32222daa9bf6ace1d8f2b831a8c5fe6a3';
+const functionCallUrl = 'http://192.168.99.100/bloc/v2.1/users/{0}/{1}/contract/PassportRegistry/{2}/call';
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function wait5() {
+  await sleep(5000);
+}
+
+
 // Create a "close" button and append it to each list item
 /*
 var myNodelist = document.getElementsByTagName("LI");
@@ -41,58 +55,22 @@ function hasNull(target) {
   return result;
 }
 
-const passportRegistryAddress = '72f28bac0b0179ef976d6a5fd24fc0bdd2f4c8a2';
-const username = 'test';
-const userAddress = 'c12d981cc2f9c568cfa0ace37ca70ef7ec7e2e1b';
-const functionCallUrl = 'http://localhost/bloc/v2.1/users/{0}/{1}/contract/PassportRegistry/{2}/call';
+function getCurrentPassports() {
+  var current;
+  var response = fetch('http://192.168.99.100/cirrus/search/Passport?');
+  return response;
 
 
-// Create a new list item when clicking on the "Add" button
-function newElement() {
-  var li = document.createElement("li");
+
+}
+
+function createPassport() {
   var name = document.getElementById("name").value;
   var dateC = document.getElementById("dateC").value;
   var dateE = document.getElementById("dateE").value;
   var address = document.getElementById("address").value;
   var age = document.getElementById("age").value;
   var nation = document.getElementById("nationality").value;
-
-  const url = functionCallUrl
-    .replace('{0}', username)
-    .replace('{1}', userAddress)
-    .replace('{2}', passportRegistryAddress);
-
-  console.log(url);
-
-  fetch(url,{
-    method: 'POST',
-    body: JSON.stringify({
-      args: {
-        name: name,
-        dateCreated: dateC,
-        dateExpires: dateE,
-        residentialAddress: address,
-        age: age,
-        countryOfOrigin: nation
-      },
-      value: 0,
-      method: 'createPassport',
-      password: '1234'
-    }),
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    }
-  })
-  .then((response) => {
-    fetch('http://localhost/cirrus/search/Passport')
-    .then((pResponse) => {
-      console.log(pResponse.json());
-    })
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
   var user = {
     name: name,
@@ -103,6 +81,69 @@ function newElement() {
     nationality: nation
   };
 
+  if (hasNull(user)) {
+    alert("You missed something!");
+  } 
+
+  else {
+
+    const url = functionCallUrl
+    .replace('{0}', username)
+    .replace('{1}', userAddress)
+    .replace('{2}', passportRegistryAddress);
+
+    fetch(url,{
+      method: 'POST',
+      body: JSON.stringify({
+        args: {
+          name: name,
+          dateCreated: dateC,
+          dateExpires: dateE,
+          residentialAddress: address,
+          age: age,
+          countryOfOrigin: nation
+        },
+        value: 0,
+        method: 'createPassport',
+        password: '1234'
+      }),
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      }
+    })
+    
+    .then((response) => {    
+      wait5()
+      .then(()=> {
+        getCurrentPassports()
+        .then(response => {
+          response.json()
+          .then((data) => {
+            newElement(user)
+            console.log("latest", data[data.length -1])
+          })
+        })
+      })
+    })
+
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  
+
+}
+
+
+
+
+// Create a new list item when clicking on the "Add" button
+function newElement(user) {
+  var li = document.createElement("li");
+
+  //Fill a list object with user information
   Object.getOwnPropertyNames(user).forEach(function(element){
     if(user.hasOwnProperty(element)){
       var b = document.createElement("b");
@@ -118,19 +159,13 @@ function newElement() {
     }
   })
 
-  var userJSON = JSON.stringify(user)
-  // var inputValue = document.getElementById("myInput").value;
-  // var descValue = document.getElementById("moreInfo").value;
-  // console.log(inputValue)
-  // console.log(descValue)
-  // var finalVal = String(inputValue) + ": " + String(descValue);
-  // console.log(finalVal)
+  //var userJSON = JSON.stringify(user)
 
-  if (hasNull(user)) {
-    alert("You missed something!");
-  } else {
-    document.getElementById("myUL").appendChild(li);
-  }
+  //Actually add the passport to the list
+  document.getElementById("myUL").appendChild(li);
+
+
+
   document.getElementById("name").value = "";
   document.getElementById("dateC").value = "";
   document.getElementById("dateE").value = "";
@@ -138,18 +173,4 @@ function newElement() {
   document.getElementById("age").value = "";
   document.getElementById("nationality").value = "";
 
-/*
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
-
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
-    }
-  }
-*/
 }
