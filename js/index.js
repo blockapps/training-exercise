@@ -58,8 +58,6 @@ function getCurrentPassports() {
   var response = fetch('http://192.168.99.100/cirrus/search/Passport?');
   return response;
 
-
-
 }
 
 function passFormVals() {
