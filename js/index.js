@@ -62,7 +62,7 @@ function getCurrentPassports() {
 
 }
 
-function createPassport() {
+function passFormVals() {
   var name = document.getElementById("name").value;
   var dateC = document.getElementById("dateC").value;
   var dateE = document.getElementById("dateE").value;
@@ -82,55 +82,62 @@ function createPassport() {
   if (hasNull(user)) {
     alert("You missed something!");
   } 
-
   else {
+    createPassport(user);
+  }
+}
 
-    const url = functionCallUrl
-    .replace('{0}', username)
-    .replace('{1}', userAddress)
-    .replace('{2}', passportRegistryAddress);
+function createPassport(user) {
+  var name = user.name;
+  var dateC = user.dateCreated;
+  var dateE = user.dateExpired;
+  var address = user.address;
+  var age = user.age;
+  var nation = user.nationality;
 
-    fetch(url,{
-      method: 'POST',
-      body: JSON.stringify({
-        args: {
-          name: name,
-          dateCreated: dateC,
-          dateExpires: dateE,
-          residentialAddress: address,
-          age: age,
-          countryOfOrigin: nation
-        },
-        value: 0,
-        method: 'createPassport',
-        password: '1234'
-      }),
-      headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-      }
-    })
-    
-    .then((response) => {    
-      wait5()
-      .then(()=> {
-        getCurrentPassports()
-        .then(response => {
-          response.json()
-          .then((data) => {
-            newElement(user)
-            console.log("latest", data[data.length -1])
-          })
+  const url = functionCallUrl
+  .replace('{0}', username)
+  .replace('{1}', userAddress)
+  .replace('{2}', passportRegistryAddress);
+
+  fetch(url,{
+    method: 'POST',
+    body: JSON.stringify({
+      args: {
+        name: name,
+        dateCreated: dateC,
+        dateExpires: dateE,
+        residentialAddress: address,
+        age: age,
+        countryOfOrigin: nation
+      },
+      value: 0,
+      method: 'createPassport',
+      password: '1234'
+    }),
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+  })
+  
+  .then((response) => {    
+    wait5()
+    .then(()=> {
+      getCurrentPassports()
+      .then(response => {
+        response.json()
+        .then((data) => {
+          newElement(user)
+          console.log("latest", data[data.length -1])
         })
       })
     })
+  })
 
-    .catch((err) => {
-      console.log(err);
-    });
-  }
-
-  
+  .catch((err) => {
+    console.log(err);
+  }); 
 
 }
 
