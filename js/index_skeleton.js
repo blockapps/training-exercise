@@ -1,8 +1,9 @@
-const passportRegistryAddress = 'e77643e24c74cf19e55847d83d1ad44b9b71d348';
-const username = 'pls';
-const userAddress = 'daee22a32222daa9bf6ace1d8f2b831a8c5fe6a3';
-const functionCallUrl = 'http://192.168.99.100/bloc/v2.1/users/{0}/{1}/contract/PassportRegistry/{2}/call';
-
+//Fill in these important fields with the pertaining values
+//For the function call url, use the variable name {1}, {2} and {3} for specific values that you can see set later in the createTextNode
+const passportRegistryAddress = '';
+const username = '';
+const userAddress = '';
+const functionCallUrl = '';
 
 
 async function wait5() {
@@ -11,7 +12,6 @@ async function wait5() {
 
 
 // Create a "close" button and append it to each list item
-/*
 var myNodelist = document.getElementsByTagName("LI");
 var i;
 for (i = 0; i < myNodelist.length; i++) {
@@ -21,7 +21,7 @@ for (i = 0; i < myNodelist.length; i++) {
   span.appendChild(txt);
   myNodelist[i].appendChild(span);
 }
-*/
+
 
 // Click on a close button to hide the current list item
 var close = document.getElementsByClassName("close");
@@ -54,9 +54,12 @@ function hasNull(target) {
 }
 
 function getCurrentPassports() {
+  //Try using cirrus to fetch the current passports
   var current;
-  var response = fetch('http://192.168.99.100/cirrus/search/Passport?');
+  var response = fetch('');
   return response;
+
+
 
 }
 
@@ -86,32 +89,30 @@ function passFormVals() {
 }
 
 function createPassport(user) {
-  var name = user.name;
-  var dateC = user.dateCreated;
-  var dateE = user.dateExpired;
-  var address = user.address;
-  var age = user.age;
-  var nation = user.nationality;
+  //define all the variables appropriately
+  var name = 
+  var dateC =
+  var dateE =
+  var address = 
+  var age = 
+  var nation = 
 
   const url = functionCallUrl
   .replace('{0}', username)
   .replace('{1}', userAddress)
   .replace('{2}', passportRegistryAddress);
 
+  //Fill in the args, method and password for the user defined in the beginning
+
   fetch(url,{
     method: 'POST',
     body: JSON.stringify({
       args: {
-        name: name,
-        dateCreated: dateC,
-        dateExpires: dateE,
-        residentialAddress: address,
-        age: age,
-        countryOfOrigin: nation
+        
       },
       value: 0,
-      method: 'createPassport',
-      password: '1234'
+      method: '',
+      password: ''
     }),
     headers: {
         'Accept': 'application/json',
@@ -162,18 +163,23 @@ function newElement(user) {
     }
   })
 
-  //var userJSON = JSON.stringify(user)
-
   //Actually add the passport to the list
   document.getElementById("myUL").appendChild(li);
 
 
-
+  //Empty the form after submission
   document.getElementById("name").value = "";
   document.getElementById("dateC").value = "";
   document.getElementById("dateE").value = "";
   document.getElementById("address").value = "";
   document.getElementById("age").value = "";
   document.getElementById("nationality").value = "";
+
+}
+
+//Create a function that will nullify the passport on click
+function nullifyPassport() {
+
+
 
 }
