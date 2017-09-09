@@ -1,7 +1,7 @@
-const passportRegistryAddress = 'e77643e24c74cf19e55847d83d1ad44b9b71d348';
-const username = 'pls';
-const userAddress = 'daee22a32222daa9bf6ace1d8f2b831a8c5fe6a3';
-const functionCallUrl = 'http://192.168.99.100/bloc/v2.1/users/{0}/{1}/contract/PassportRegistry/{2}/call';
+const passportRegistryAddress = 'edd0df221caaed487a4946e3b4ae43a1b6289cf1';
+const username = 'alice1';
+const userAddress = 'b919bd71421b1eacedd08942f92841d934d14733';
+const functionCallUrl = 'http://localhost/bloc/v2.1/users/{0}/{1}/contract/PassportRegistry/{2}/call';
 
 
 
@@ -55,7 +55,7 @@ function hasNull(target) {
 
 function getCurrentPassports() {
   var current;
-  var response = fetch('http://192.168.99.100/cirrus/search/Passport?');
+  var response = fetch('http://localhost/cirrus/search/Passport?');
   return response;
 
 }
@@ -79,7 +79,7 @@ function passFormVals() {
 
   if (hasNull(user)) {
     alert("You missed something!");
-  } 
+  }
   else {
     createPassport(user);
   }
@@ -118,10 +118,11 @@ function createPassport(user) {
         'Content-Type': 'application/json'
     }
   })
-  
-  .then((response) => {    
-    wait5()
-    .then(()=> {
+
+  .then((response) => {
+    // //wait5()
+    // .then(()=> {
+    setTimeout(() => {
       getCurrentPassports()
       .then(response => {
         response.json()
@@ -130,12 +131,13 @@ function createPassport(user) {
           console.log("latest", data[data.length -1])
         })
       })
-    })
+    }, 5000);
+    // })
   })
 
   .catch((err) => {
     console.log(err);
-  }); 
+  });
 
 }
 
