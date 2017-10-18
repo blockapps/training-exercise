@@ -1,26 +1,32 @@
-//Fill in these important fields with the pertaining values
-//For the function call url, use the variable name {1}, {2} and {3} for specific values that you can see set later in the createTextNode
+//TODO::Fill in these important fields with the pertaining values
+// be sure to change <baseurl> to localhost or whatever ip/domain name
+// you're using.
 const passportRegistryAddress = '';
 const username = '';
 const userAddress = '';
-const functionCallUrl = '';
+const password = '';
+const functionCallUrl = 'http://<baseurl>/bloc/v2.2/users/{0}/{1}/contract/PassportRegistry/{2}/call';
 
 
 async function wait5() {
   await sleep(5000);
 }
 
+window.onload = populatePassportList
 
-// Create a "close" button and append it to each list item
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
+function populatePassportList() {
+  getCurrentPassports()
+    .then(response => {
+      response.json()
+        .then((data) => {
+          data.map(function(p){
+            newElement(p)
+          });
+        });
+    });
 }
+
+
 
 
 // Click on a close button to hide the current list item
@@ -54,9 +60,11 @@ function hasNull(target) {
 }
 
 function getCurrentPassports() {
-  //Try using cirrus to fetch the current passports
+  //TODO::Try using cirrus to fetch the current passports
+  //HINT::Fill in the correct url
   var current;
-  var response = fetch('');
+  var url = ''
+  var response = fetch();
   return response;
 
 
@@ -82,61 +90,60 @@ function passFormVals() {
 
   if (hasNull(user)) {
     alert("You missed something!");
-  } 
+  }
   else {
     createPassport(user);
   }
 }
 
 function createPassport(user) {
-  //define all the variables appropriately
-  var name = 
+  //TODO::define all the variables appropriately
+  var name =
   var dateC =
   var dateE =
-  var address = 
-  var age = 
-  var nation = 
+  var address =
+  var age =
+  var nation =
 
   const url = functionCallUrl
   .replace('{0}', username)
   .replace('{1}', userAddress)
   .replace('{2}', passportRegistryAddress);
 
-  //Fill in the args, method and password for the user defined in the beginning
 
   fetch(url,{
     method: 'POST',
     body: JSON.stringify({
+      //TODO::Fill in the args, method and password for the user defined in the beginning
       args: {
-        
+
       },
       value: 0,
       method: '',
-      password: ''
+      password: password
     }),
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     }
   })
-  
-  .then((response) => {    
-    wait5()
-    .then(()=> {
+
+  .then((response) => {
+    setTimeout(() => {
       getCurrentPassports()
       .then(response => {
         response.json()
         .then((data) => {
-          newElement(user)
-          console.log("latest", data[data.length -1])
+          document.getElementById("myUL").innerHTML = "";
+          populatePassportList();
         })
       })
-    })
+    }, 5000);
   })
 
   .catch((err) => {
     console.log(err);
-  }); 
+  });
 
 }
 
@@ -177,7 +184,7 @@ function newElement(user) {
 
 }
 
-//Create a function that will nullify the passport on click
+//TODO::(Optional) Create a function that will nullify the passport on click
 function nullifyPassport() {
 
 
