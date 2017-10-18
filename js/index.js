@@ -1,7 +1,8 @@
-const passportRegistryAddress = 'edd0df221caaed487a4946e3b4ae43a1b6289cf1';
-const username = 'alice1';
-const userAddress = 'b919bd71421b1eacedd08942f92841d934d14733';
-const functionCallUrl = 'http://localhost/bloc/v2.1/users/{0}/{1}/contract/PassportRegistry/{2}/call';
+const passportRegistryAddress = '07542afc6ddeedcc612331113a4f266a81aff983';
+const username = 'a';
+const userAddress = 'beb21a2a846e47a61c6929c41514744061e3aee1';
+
+const functionCallUrl = 'http://charles-build.eastus.cloudapp.azure.com/bloc/v2.2/users/{0}/{1}/contract/PassportRegistry/{2}/call';
 
 
 
@@ -21,7 +22,21 @@ for (i = 0; i < myNodelist.length; i++) {
   span.appendChild(txt);
   myNodelist[i].appendChild(span);
 }
-*/
+ */
+
+window.onload = populatePassportList
+
+function populatePassportList() {
+  getCurrentPassports()
+    .then(response => {
+      response.json()
+        .then((data) => {
+          data.map(function(p){
+            newElement(p)
+          });
+        });
+    });
+}
 
 // Click on a close button to hide the current list item
 var close = document.getElementsByClassName("close");
@@ -32,6 +47,8 @@ for (i = 0; i < close.length; i++) {
     div.style.display = "none";
   }
 }
+
+
 
 // Add a "checked" symbol when clicking on a list item
 var list = document.querySelector('ul');
@@ -55,7 +72,7 @@ function hasNull(target) {
 
 function getCurrentPassports() {
   var current;
-  var response = fetch('http://localhost/cirrus/search/Passport?');
+  var response = fetch('http://charles-build.eastus.cloudapp.azure.com/cirrus/search/Passport?');
   return response;
 
 }
@@ -111,7 +128,7 @@ function createPassport(user) {
       },
       value: 0,
       method: 'createPassport',
-      password: '1234'
+      password: 'a'
     }),
     headers: {
         'Accept': 'application/json',
@@ -120,19 +137,16 @@ function createPassport(user) {
   })
 
   .then((response) => {
-    // //wait5()
-    // .then(()=> {
     setTimeout(() => {
       getCurrentPassports()
       .then(response => {
         response.json()
         .then((data) => {
-          newElement(user)
-          console.log("latest", data[data.length -1])
+          document.getElementById("myUL").innerHTML = "";
+          populatePassportList();
         })
       })
     }, 5000);
-    // })
   })
 
   .catch((err) => {
