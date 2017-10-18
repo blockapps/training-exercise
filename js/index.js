@@ -1,8 +1,9 @@
 const passportRegistryAddress = '07542afc6ddeedcc612331113a4f266a81aff983';
-const username = 'a';
+const username = 'username';
 const userAddress = 'beb21a2a846e47a61c6929c41514744061e3aee1';
+const password = '1234';
 
-const functionCallUrl = 'http://charles-build.eastus.cloudapp.azure.com/bloc/v2.2/users/{0}/{1}/contract/PassportRegistry/{2}/call';
+const functionCallUrl = 'http://localhost/bloc/v2.2/users/{0}/{1}/contract/PassportRegistry/{2}/call';
 
 
 
@@ -72,7 +73,7 @@ function hasNull(target) {
 
 function getCurrentPassports() {
   var current;
-  var response = fetch('http://charles-build.eastus.cloudapp.azure.com/cirrus/search/Passport?');
+  var response = fetch('http://localhost/cirrus/search/Passport?');
   return response;
 
 }
@@ -128,7 +129,7 @@ function createPassport(user) {
       },
       value: 0,
       method: 'createPassport',
-      password: 'a'
+      password: password
     }),
     headers: {
         'Accept': 'application/json',

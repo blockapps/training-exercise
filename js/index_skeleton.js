@@ -4,6 +4,7 @@
 const passportRegistryAddress = '';
 const username = '';
 const userAddress = '';
+const password = '';
 const functionCallUrl = 'http://<baseurl>/bloc/v2.2/users/{0}/{1}/contract/PassportRegistry/{2}/call';
 
 
@@ -119,7 +120,7 @@ function createPassport(user) {
       },
       value: 0,
       method: '',
-      password: ''
+      password: password
     }),
     headers: {
         'Accept': 'application/json',
