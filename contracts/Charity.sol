@@ -25,6 +25,7 @@ contract Charity {
             boardMember1 = bm1;
             boardMember2 = bm2;
             registeredYet = true;
+            return "Board members successfully registered!";
         }
         else if (registeredYet) {
             return "You already registered! You can't register twice!";
@@ -55,7 +56,7 @@ contract Charity {
             return "Thanks, owner!";
         }
 
-        return "You're not the owner! ";
+        return "You're not the owner!";
     }
 
     function withdraw() returns (string) {
@@ -76,8 +77,11 @@ contract Charity {
                signatures[owner] = false;
                signatures[boardMember1] = false;
                signatures[boardMember2] = false;
+               return "Money withdrawn!";
            }
+           else return "Not enough signatures! Come back later!";
         }
+        else return "You're not on the board! Get outta here!";
     }
 
 
