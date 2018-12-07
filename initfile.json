@@ -1,0 +1,71 @@
+{
+  "masterContract": {
+    "contractName": "MasterContract",
+      "contractFilename": "contracts/MasterContract.sol",
+      "args": {}
+  },
+  "passport": {
+    "contractName": "Passport",
+      "contractFilename": "contracts/Passport.sol",
+      "args": {
+          "_name": "ABC",
+          "_dateCreated": "1281930090",
+          "_dateExpires": "1681930090",
+          "_residentialAddress": "ABC Road, XYZ",
+          "_age": "25",
+          "_countryOfOrigin": "XYZ"
+      }
+  },
+  "passportRegistry": {
+    "contractName": "PassportRegistry",
+      "contractFilename": "contracts/PassportRegistry.sol",
+      "args": {
+          "name": "ABC",
+          "dateCreated": "1281930090",
+          "dateExpires": "1681930090",
+          "residentialAddress": "ABC Road, XYZ",
+          "age": "25",
+          "countryOfOrigin": "XYZ"
+      }
+  },
+  "product": {
+    "contractName": "Product",
+      "contractFilename": "contracts/Product.sol",
+      "args": {
+          "_id": "1000000000",
+          "_name": "ABC",
+          "_category": "XYZ",
+          "_price": "700"
+      }
+  },
+  "productManager": {
+    "contractName": "ProductManager",
+      "contractFilename": "contracts/ProductManager.sol",
+      "args": {
+          "_id": "1000000000",
+          "_name": "ABC",
+          "_category": "XYZ",
+          "_price": "700"
+      }
+  },
+  "simpleMultiSig": {
+    "contractName": "SimpleMultiSig",
+      "contractFilename": "contracts/SimpleMultiSig.sol",
+      "args": {}
+  },
+  "simpleStorage": {
+    "contractName": "SimpleStorage",
+      "contractFilename": "contracts/SimpleStorage.sol",
+      "args": {}
+  },
+  "payout":{
+    "contractName": "Payout",
+      "contractFilename": "contracts/Payout.sol",
+      "args": {}
+  },
+  "piggyback":{
+    "contractName": "Piggyback",
+      "contractFilename": "contracts/Piggyback.sol",
+      "args": {}
+  }
+}
